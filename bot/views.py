@@ -3,6 +3,7 @@ from django.shortcuts import render
 __author__ = '@begyy'
 from rest_framework.response import Response
 from rest_framework.views import  APIView
+from .models import User
 # Create your views here.
 import telebot
 bot = telebot.TeleBot('631187101:AAEJGwhdYWiNrlJUAKyh4Fst5vysiEd9hJo')
@@ -19,6 +20,10 @@ class UpdateBot(APIView):
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.send_message(message.chat.id,'Salom')
+    user = User()
+    user.user_id = message.chat.id
+    user.save()
+
 
 @bot.message_handler(content_types='text')
 def send_Message(message):
